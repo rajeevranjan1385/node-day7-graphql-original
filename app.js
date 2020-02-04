@@ -7,7 +7,7 @@ const app = express();
 
 app.use('/graphql', expressGraphQL({
     schema,         //we need to provide what schema we use
-    graphiql: true  //this is the interface
+    graphiql: true  //we need to make this true as this provides the interface otherwise it wont give me interface
 }))
 
 app.listen(port, (err)=>{

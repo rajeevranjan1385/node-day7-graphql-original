@@ -1,38 +1,6 @@
 const graphql = require('graphql');
-const _ = require('lodash');
-
-const products = [
-    {
-        "id": 3,
-        "name": "Quaker",
-        "rating": 4,
-        "category": "breakfast",
-        "price": 13,
-        "delivery": "Free 2-day delivery",
-        "image": "Quaker.jpg",
-        "details": "Quaker Instant Oatmeal Express Cups, Variety Pack, 12 Count"
-      },
-      {
-        "id": 4,
-        "name": "Malt-O-Meal",
-        "rating": 3,
-        "category": "breakfast",
-        "price": 3,
-        "delivery": "2-day delivery",
-        "image": "Malt_O_Meal.jpg",
-        "details": "Malt-O-Meal Quick Cooking Wheat Hot Cereal, Chocolate, 36 Oz"
-      },
-      {
-        "id": 5,
-        "name": "Lipton",
-        "rating": 2,
-        "category": "breakfast",
-        "price": 1,
-        "delivery": "2-day delivery",
-        "image": "Lipton.jpg",
-        "details": "Lipton Soup Secrets with Real Chicken Flavor Extra Noodle Soup Mix, 4.9 oz 2 ct"
-      }
-]
+// const _ = require('lodash');
+const axios = require('axios');
 
 const {
     GraphQLInt,
@@ -61,7 +29,8 @@ const RootQuery = new GraphQLObjectType({
             type: productType,
             args: {id: {type: GraphQLInt}},
             resolve(parentValue, args){
-                return _.find(products, {id:args.id})
+                return axios.get(`http://localhost:8900/product/${args.id}`)
+                        .then(res=>res.data)
             }
         }
     }
